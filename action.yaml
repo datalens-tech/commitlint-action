@@ -22,16 +22,16 @@ runs:
 
     - name: Install Dependencies
       shell: bash
-      working-directory: ${{ github.action_path }}/.github/actions/commitlint-action/
+      working-directory: ${{ github.action_path }}
       run: |
         npm ci
 
     - name: Lint Commit
       id: validation
       shell: bash
-      working-directory: ${{ github.action_path }}/.github/actions/commitlint-action/
+      working-directory: ${{ github.action_path }}
       run: |
-        echo "$PR_TITLE" | npx commitlint --config ${{ github.action_path }}/.github/actions/commitlint-action/src/commitlint.config.js
+        echo "$PR_TITLE" | npx commitlint --config ${{ github.action_path }}/src/commitlint.config.js
         echo "result=ok!" >> $GITHUB_OUTPUT
       env:
         PR_TITLE: ${{ inputs.github_pr_title }}
