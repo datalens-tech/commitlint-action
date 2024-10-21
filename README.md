@@ -26,9 +26,7 @@ jobs:
 
 ### Action Outputs
 
-| Name     | Description                 |
-| -------- | --------------------------- |
-| `result` | Result of commitlint action |
+None
 
 ## Development
 

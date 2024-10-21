@@ -35,6 +35,9 @@
     "lint:check:prettier": "prettier --check .",
     "lint:fix": "npm run lint:fix:prettier",
     "lint:fix:prettier": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "jest",
+    "eslint:fix": "eslint --fix",
+    "all": "npm run eslint:fix && npm run lint:fix:prettier && npm run test"
   }
 }

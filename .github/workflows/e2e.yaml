@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Test Run
-        id: test-run
+        id: test-run-default
         uses: ./
         with:
           github_pr_title: "feat: BI-1234 lyalyalya topolya"
@@ -27,5 +27,73 @@ jobs:
       - name: Assert placeholder
         uses: nick-fields/assert-action@v2
         with:
-          actual: ${{ steps.test-run.outputs.result }}
-          expected: "ok!"
+          actual: ${{ steps.test-run-default.outcome }}
+          expected: "success"
+
+  e2e-with-components:
+    runs-on: ubuntu-20.04
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Test Run
+        id: test-run-with-components
+        uses: ./
+        with:
+          github_pr_title: "feat(docs, auth): BI-1234 lyalyalya topolya"
+
+      - name: Assert placeholder
+        uses: nick-fields/assert-action@v2
+        with:
+          actual: ${{ steps.test-run-with-components.outcome }}
+          expected: "success"
+
+  e2e-wrong-type:
+    runs-on: ubuntu-20.04
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Test Run
+        id: test-run-wrong-type
+        uses: ./
+        with:
+          github_pr_title: "new-feature: BI-1234 lyalyalya topolya" # legacy type
+        continue-on-error: true
+
+      - name: Assert placeholder
+        uses: nick-fields/assert-action@v2
+        with:
+          actual: ${{ steps.test-run-wrong-type.outcome }}
+          expected: "failure"
+
+  e2e-without-ticket:
+    runs-on: ubuntu-20.04
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Test Run
+        id: test-run-without-ticket
+        uses: ./
+        with:
+          github_pr_title: "feat: lyalyalya topolya"
+        continue-on-error: true
+
+      - name: Assert placeholder
+        uses: nick-fields/assert-action@v2
+        with:
+          actual: ${{ steps.test-run-without-ticket.outcome }}
+          expected: "failure"

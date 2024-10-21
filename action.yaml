@@ -6,11 +6,6 @@ inputs:
     description: "GitHub PR title"
     default: ${{ github.event.pull_request.title }}
 
-outputs:
-  result:
-    description: "Result of commitlint action"
-    value: ${{ steps.validation.outputs.result }}
-
 runs:
   using: composite
 
@@ -32,7 +27,6 @@ runs:
       working-directory: ${{ github.action_path }}
       run: |
         echo "$PR_TITLE" | npx commitlint --config ${{ github.action_path }}/src/commitlint.config.js
-        echo "result=ok!" >> $GITHUB_OUTPUT
       env:
         PR_TITLE: ${{ inputs.github_pr_title }}
 
