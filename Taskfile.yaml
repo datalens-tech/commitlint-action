@@ -38,6 +38,14 @@ tasks:
     cmds:
       - task: _with_nvm
         vars: { COMMAND: "npm run lint:fix" }
+      - task: _with_nvm
+        vars: { COMMAND: "npm run eslint:fix" }
+
+  test:
+    desc: Test project by jest
+    cmds:
+      - task: _with_nvm
+        vars: { COMMAND: "npm run test" }
 
   clean:
     desc: Clean project environment
